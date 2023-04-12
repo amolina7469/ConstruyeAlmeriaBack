@@ -2,4 +2,11 @@ const getAll = () => {
   return db.query('select * from users');
 }
 
-module.exports = { getAll };
+const getByEmail = (email) => {
+  return db.query('select * from  users where email = ?', [email]);
+}
+
+module.exports = {
+  getAll,
+  getByEmail
+};
