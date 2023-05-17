@@ -7,5 +7,6 @@ router.use('/herramientas', require('./api/herramientas'));
 router.use('/obras', require('./api/obras'));
 router.use('/vehiculos', require('./api/vehiculos'));
 router.use('/contenedores', require('./api/contenedores'));
+router.use('/jornadas', require('./api/jornadas'));
 
 module.exports = router;
