@@ -7,7 +7,8 @@ const {
   addWorkers,
   getDailyById,
   getWorkdayById,
-  getLastDailys
+  getLastDailys,
+  deleteById
 } = require('../../models/parte.model');
 
 router.get('/last', async (req, res) => {
@@ -26,9 +27,11 @@ router.get('/id', async (req, res) => {
     const [result] = await getDailyById(id);
     result[0].tools = await createObject(result[0].tools.split(","), "tools", id);
     result[0].workers = await createObject(result[0].workers.split(","), "workers", id);
-    for (let worker of result[0].workers) {
-      const [jornada] = await getWorkdayById(worker.jornada);
-      worker.jornada = jornada[0].day;
+    if (result[0].workers.length > 0) {
+      for (let worker of result[0].workers) {
+        const [jornada] = await getWorkdayById(worker.jornada);
+        worker.jornada = jornada[0].day;
+      }
     }
     res.json(result[0]);
   } catch (err) {
@@ -53,9 +56,22 @@ router.post('/', async (req, res) => {
         await addWorkers(worker.id, dailyId, worker.jornada);
       }
     }
+    res.json(result[0]);
   } catch (err) {
     res.json(err.message);
   }
 })
+
+router.delete('/id', async (req, res) => {
+  const { id } = req.query;
+  try {
+    const result = await deleteById(id);
+    res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
+
 
 module.exports = router;
