@@ -8,12 +8,24 @@ const {
   getDailyById,
   getWorkdayById,
   getLastDailys,
+  getFilterDailys,
   deleteById
 } = require('../../models/parte.model');
 
 router.get('/last', async (req, res) => {
   try {
     const [result] = await getLastDailys(req.query);
+    console.log(result);
+    res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+})
+
+router.get('/filter', async (req, res) => {
+  try {
+    console.log(req.query);
+    const [result] = await getFilterDailys(req.query);
     console.log(result);
     res.json(result);
   } catch (err) {
