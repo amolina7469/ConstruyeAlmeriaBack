@@ -8,7 +8,8 @@ const {
   getDailyById,
   getWorkdayById,
   getLastDailys,
-  getFilterDailys,
+  getFilterWorks,
+  getFilterClients,
   deleteById
 } = require('../../models/parte.model');
 
@@ -24,10 +25,17 @@ router.get('/last', async (req, res) => {
 
 router.get('/filter', async (req, res) => {
   try {
-    console.log(req.query);
-    const [result] = await getFilterDailys(req.query);
-    console.log(result);
-    res.json(result);
+    console.log("filter", req.query);
+    if (req.query.seleccion === '1') {
+      const [result] = await getFilterClients(req.query);
+      console.log(result);
+      res.json(result);
+    }
+    else if (req.query.seleccion === '2') {
+      const [result] = await getFilterWorks(req.query);
+      console.log(result);
+      res.json(result);
+    }
   } catch (err) {
     res.json(err.message);
   }

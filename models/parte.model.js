@@ -26,8 +26,12 @@ const deleteById = (id) => {
   return db.query('delete from daily where id = ?', [id])
 }
 
-const getFilterDailys = ({ fechaInicio, fechaFin, filtro }) => {
-  return db.query('select date, daily.id, works.address, clients.name, clients.surname from daily inner join works on work_id = works.id inner join clients on client_id= clients.id where works.address = ? and date BETWEEN ? AND ? order by daily.id', [filtro, fechaInicio, fechaFin]);
+const getFilterWorks = ({ fechaInicio, fechaFin, filtro }) => {
+  return db.query('select date, daily.id, works.address, clients.name, clients.surname from daily inner join works on work_id = works.id inner join clients on client_id= clients.id where works.id = ? and date BETWEEN ? AND ? order by daily.id', [filtro, fechaInicio, fechaFin]);
+};
+
+const getFilterClients = ({ fechaInicio, fechaFin, filtro }) => {
+  return db.query('select date, daily.id, works.address, clients.name, clients.surname from daily inner join works on work_id = works.id inner join clients on client_id= clients.id where clients.id = ? and date BETWEEN ? AND ? order by daily.id', [filtro, fechaInicio, fechaFin]);
 };
 
 module.exports = {
@@ -40,5 +44,6 @@ module.exports = {
   getWorkdayById,
   getLastDailys,
   deleteById,
-  getFilterDailys
+  getFilterWorks,
+  getFilterClients
 }
