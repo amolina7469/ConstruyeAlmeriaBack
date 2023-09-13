@@ -1,5 +1,5 @@
 const getAll = () => {
-  return db.query('select * from workers');
+  return db.query('select * from workers where workers.isActivated = 1');
 }
 
 const createWorker = ({ name, surname }) => {
@@ -7,8 +7,13 @@ const createWorker = ({ name, surname }) => {
 }
 
 const deleteWorker = ({ id }) => {
-  return db.query('delete from workers where id=?', [id])
+  return db.query('update construye.workers set workers.isActivated = 0 where id=?', [id])
 }
+
+
+// const deleteWorker = ({ id }) => {
+//   return db.query('delete from workers where id=?', [id])
+// }
 
 module.exports = {
   getAll,

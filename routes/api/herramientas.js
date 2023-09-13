@@ -25,8 +25,7 @@ router.post('/', async (req, res) => {
   }
 });
 
-router.delete('/id', async (req, res) => {
-  console.log(req.query.id);
+router.put('/id', async (req, res) => {
   try {
     const result = await deleteTool(req.query);
     console.log(result[0]);
@@ -35,5 +34,17 @@ router.delete('/id', async (req, res) => {
     res.json(err.message);
   }
 });
+
+// router.delete('/id', async (req, res) => {
+//   console.log(req.query.id);
+//   try {
+//     const result = await deleteTool(req.query);
+//     console.log(result[0]);
+//     res.json(result[0]);
+//   } catch (err) {
+//     res.json(err.message);
+//   }
+// });
+
 
 module.exports = router;

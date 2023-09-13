@@ -10,3 +10,6 @@ Content-Type: application/json
   "description":"pilones",
   "price": 120
 }
+
+###
+DELETE http://localhost:3000/api/herramientas/12

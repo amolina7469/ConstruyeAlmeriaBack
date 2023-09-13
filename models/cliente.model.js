@@ -1,5 +1,5 @@
 const getAll = () => {
-  return db.query('select * from clients');
+  return db.query('select * from clients where clients.isActivated = 1');
 }
 
 const createClient = ({ name, surname, email }) => {
@@ -7,8 +7,13 @@ const createClient = ({ name, surname, email }) => {
 }
 
 const deleteClient = ({ id }) => {
-  return db.query('delete from clients where id=?', [id])
+  return db.query('update construye.clients set clients.isActivated = 0 where id=?', [id])
 }
+
+// const deleteClient = ({ id }) => {
+//   return db.query('delete from clients where id=?', [id])
+// }
+
 
 module.exports = {
   getAll,
