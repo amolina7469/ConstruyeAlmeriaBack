@@ -3,7 +3,9 @@ const router = require('express').Router();
 const {
   getAll,
   createWork,
-  deleteWork
+  deleteWork,
+  workById,
+  editWork
 } = require('../../models/obra.model');
 
 router.get('/', async (req, res) => {
@@ -11,6 +13,25 @@ router.get('/', async (req, res) => {
     const [result] = await getAll();
     console.log(result);
     res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
+router.get('/id', async (req, res) => {
+  try {
+    const [result] = await workById(req.query);
+    res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
+router.patch('/', async (req, res) => {
+  try {
+    const result = await editWork(req.body);
+    console.log(result[0]);
+    res.json(result[0]);
   } catch (err) {
     res.json(err.message);
   }

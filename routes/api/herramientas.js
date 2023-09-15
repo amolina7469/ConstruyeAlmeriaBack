@@ -3,13 +3,34 @@ const router = require('express').Router();
 const {
   getAll,
   createTool,
-  deleteTool
+  deleteTool,
+  toolById,
+  editTool
 } = require('../../models/herramienta.model');
 
 router.get('/', async (req, res) => {
   try {
     const [result] = await getAll();
     res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
+router.get('/id', async (req, res) => {
+  try {
+    const [result] = await toolById(req.query);
+    res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
+router.patch('/', async (req, res) => {
+  try {
+    const result = await editTool(req.body);
+    console.log(result[0]);
+    res.json(result[0]);
   } catch (err) {
     res.json(err.message);
   }

@@ -2,6 +2,8 @@ const router = require('express').Router();
 
 const {
   getAll,
+  clientById,
+  editClient,
   createClient,
   deleteClient
 } = require('../../models/cliente.model');
@@ -10,6 +12,25 @@ router.get('/', async (req, res) => {
   try {
     const [result] = await getAll();
     res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
+router.get('/id', async (req, res) => {
+  try {
+    const [result] = await clientById(req.query);
+    res.json(result);
+  } catch (err) {
+    res.json(err.message);
+  }
+});
+
+router.patch('/', async (req, res) => {
+  try {
+    const result = await editClient(req.body);
+    console.log(result[0]);
+    res.json(result[0]);
   } catch (err) {
     res.json(err.message);
   }
