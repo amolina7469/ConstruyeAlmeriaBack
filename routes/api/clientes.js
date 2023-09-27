@@ -27,6 +27,7 @@ router.get('/id', async (req, res) => {
 });
 
 router.patch('/', async (req, res) => {
+  console.log(req.body);
   try {
     const result = await editClient(req.body);
     console.log(result[0]);

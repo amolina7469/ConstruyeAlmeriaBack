@@ -10,8 +10,8 @@ const createTool = ({ name, description, price }) => {
   return db.query('INSERT INTO tools (name, description, price) VALUES (?,?,?)', [name, description, price]);
 }
 
-const editTool = ({ name, descrition, price }) => {
-  return db.query('UPDATE tools SET name = ?, description = ?, price = ? WHERE id = ?', [name, descrition, price]);
+const editTool = ({ name, description, price, id }) => {
+  return db.query('UPDATE tools SET name = ?, description = ?, price = ? WHERE id = ?', [name, description, price, id]);
 }
 
 // const deleteTool = ({ id }) => {

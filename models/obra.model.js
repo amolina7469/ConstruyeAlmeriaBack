@@ -10,8 +10,8 @@ const createWork = ({ address, client }) => {
   return db.query('insert into works (address,client_id) values (?,?)', [address, client]);
 }
 
-const editWork = ({ address, clientId, km, pricekm }) => {
-  return db.query('UPDATE works SET address = ?, clientId = ?, km = ?, pricekm = ? WHERE id = ?', [address, clientId, km, pricekm]);
+const editWork = ({ address, client, km, pricekm, id }) => {
+  return db.query('UPDATE works SET address = ?, client_id = ?, km = ?, pricekm = ? WHERE id = ?', [address, client, km, pricekm, id]);
 }
 
 const deleteWork = ({ id }) => {
