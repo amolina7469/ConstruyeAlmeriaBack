@@ -7,6 +7,8 @@ const {
   getAll,
   getByEmail,
   regUser,
+  getById,
+  activeUser,
   update
 } = require('../../models/usuario.model');
 
@@ -36,11 +38,13 @@ router.post('/login', async (req, res) => {
     return res.json({ fatal: 'Error en email y/o contraseña' });
   }
   const usuario = result[0];
-  console.log(usuario.password, password);
-  const iguales = bcrypt.compareSync(password, usuario.password);
-  console.log(iguales);
-  if (!iguales) {
-    return res.json({ fatal: 'Error en email y/o contraseñassssss' });
+  if (usuario.isActivated === 1) {
+    const iguales = bcrypt.compareSync(password, usuario.password);
+    if (!iguales) {
+      return res.json({ fatal: 'Error en email y/o contraseñassssss' });
+    }
+  } else {
+    return res.json({ inactive: 'Usuario inactivo' })
   }
   res.json({
     success: 'Login correcto',
@@ -74,8 +78,18 @@ router.post('/forget', async (req, res) => {
   });
 });
 
+
+router.put('/activar', async (req, res) => {
+  ids = req.body.join(',');
+  try {
+    const [result] = await activeUser(ids);
+    res.json(result)
+  } catch (err) {
+    res.json({ fatal: err.message });
+  }
+});
+
 router.put('/reset', async (req, res) => {
-  console.log(req.body);
   const { email, newPassword } = req.body;
   const [result] = await getByEmail(email);
   if (result.length === 0) {

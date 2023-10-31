@@ -1,4 +1,8 @@
 const getAll = () => {
+  return db.query('select * from clients');
+}
+
+const getActives = () => {
   return db.query('select * from clients where clients.isActivated = 1');
 }
 
@@ -18,6 +22,9 @@ const deleteClient = ({ id }) => {
   return db.query('update construye.clients set clients.isActivated = 0 where id=?', [id])
 }
 
+const activeClient = (idString) => {
+  return db.query('update clients set isActivated = case when isActivated = 0 then 1 when isActivated = 1 then 0 end  where find_in_set(id,?)>0', [idString]);
+}
 // const deleteClient = ({ id }) => {
 //   return db.query('delete from clients where id=?', [id])
 // }
@@ -25,8 +32,10 @@ const deleteClient = ({ id }) => {
 
 module.exports = {
   getAll,
+  getActives,
   clientById,
   editClient,
+  activeClient,
   createClient,
   deleteClient
 };

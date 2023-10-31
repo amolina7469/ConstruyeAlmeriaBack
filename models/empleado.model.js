@@ -1,4 +1,8 @@
 const getAll = () => {
+  return db.query('select * from workers');
+}
+
+const getActives = () => {
   return db.query('select * from workers where workers.isActivated = 1');
 }
 
@@ -17,6 +21,9 @@ const deleteWorker = ({ id }) => {
   return db.query('UPDATE construye.workers SET workers.isActivated = 0 WHERE id=?', [id])
 }
 
+const activeWorker = (idString) => {
+  return db.query('update workers set isActivated = case when isActivated = 0 then 1 when isActivated = 1 then 0 end  where find_in_set(id,?)>0', [idString]);
+}
 
 // const deleteWorker = ({ id }) => {
 //   return db.query('delete from workers where id=?', [id])
@@ -24,8 +31,10 @@ const deleteWorker = ({ id }) => {
 
 module.exports = {
   getAll,
+  getActives,
   workerById,
   createWorker,
+  activeWorker,
   editWorker,
   deleteWorker
 };
