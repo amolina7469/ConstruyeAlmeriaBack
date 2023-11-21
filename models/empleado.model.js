@@ -25,10 +25,6 @@ const activeWorker = (idString) => {
   return db.query('update workers set isActivated = case when isActivated = 0 then 1 when isActivated = 1 then 0 end  where find_in_set(id,?)>0', [idString]);
 }
 
-// const deleteWorker = ({ id }) => {
-//   return db.query('delete from workers where id=?', [id])
-// }
-
 module.exports = {
   getAll,
   getActives,

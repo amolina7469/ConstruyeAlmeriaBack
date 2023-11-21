@@ -22,7 +22,7 @@ router.get('/', async (req, res) => {
 router.get('/active', async (req, res) => {
   try {
     const [result] = await getActives();
-    console.log(result)
+    console.log(result);
     res.json(result);
   } catch (err) {
     res.json(err.message);
@@ -49,6 +49,7 @@ router.patch('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
+  console.log(req.body);
   try {
     const result = await createTool(req.body);
     console.log(result[0]);

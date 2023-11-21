@@ -22,7 +22,6 @@ router.get('/', async (req, res) => {
 router.get('/active', async (req, res) => {
   try {
     const [result] = await getActives();
-    console.log(result)
     res.json(result);
   } catch (err) {
     res.json(err.message);
@@ -39,10 +38,8 @@ router.get('/id', async (req, res) => {
 });
 
 router.patch('/', async (req, res) => {
-  console.log(req.body);
   try {
     const result = await editClient(req.body);
-    console.log(result[0]);
     res.json(result[0]);
   } catch (err) {
     res.json(err.message);
@@ -52,7 +49,6 @@ router.patch('/', async (req, res) => {
 router.post('/', async (req, res) => {
   try {
     const result = await createClient(req.body);
-    console.log(result[0]);
     res.json(result[0]);
   } catch (err) {
     res.json(err.message);
@@ -63,7 +59,6 @@ router.put('/id', async (req, res) => {
   console.log(req.query);
   try {
     const result = await deleteClient(req.query);
-    console.log(result[0]);
     res.json(result[0]);
   } catch (err) {
     res.json(err.message);

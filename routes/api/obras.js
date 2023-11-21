@@ -50,7 +50,6 @@ router.patch('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-  console.log(req.body);
   try {
     const result = await createWork(req.body);
     console.log(result[0]);
@@ -61,7 +60,7 @@ router.post('/', async (req, res) => {
 });
 
 router.put('/id', async (req, res) => {
-  console.log(req.query);
+
   try {
     const result = await deleteWork(req.query);
     console.log(result[0]);

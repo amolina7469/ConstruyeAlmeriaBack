@@ -25,6 +25,7 @@ const deleteTool = ({ id }) => {
 const activeTool = (idString) => {
   return db.query('update tools set isActivated = case when isActivated = 0 then 1 when isActivated = 1 then 0 end  where find_in_set(id,?)>0', [idString]);
 }
+
 module.exports = {
   getAll,
   getActives,

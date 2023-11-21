@@ -16,7 +16,6 @@ const {
 router.get('/last', async (req, res) => {
   try {
     const [result] = await getLastDailys(req.query);
-    console.log(result);
     res.json(result);
   } catch (err) {
     res.json(err.message);
@@ -28,12 +27,10 @@ router.get('/filter', async (req, res) => {
     console.log("filter", req.query);
     if (req.query.seleccion === '1') {
       const [result] = await getFilterClients(req.query);
-      console.log(result);
       res.json(result);
     }
     else if (req.query.seleccion === '2') {
       const [result] = await getFilterWorks(req.query);
-      console.log(result);
       res.json(result);
     }
   } catch (err) {
@@ -60,7 +57,6 @@ router.get('/id', async (req, res) => {
 })
 
 router.post('/', async (req, res) => {
-  console.log(req.body);
   try {
     const result = await createDaily(req.body);
     dailyId = result[0].insertId;
@@ -69,10 +65,8 @@ router.post('/', async (req, res) => {
         await addTools(tool.id, dailyId);
       }
     }
-    console.log(req.body.worker);
     if (req.body.worker.length > 0) {
       for (let worker of req.body.worker) {
-        console.log(worker.id, worker.jornada);
         await addWorkers(worker.id, dailyId, worker.jornada);
       }
     }

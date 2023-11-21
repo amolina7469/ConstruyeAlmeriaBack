@@ -65,7 +65,6 @@ router.post('/registro', async (req, res) => {
 });
 
 router.post('/forget', async (req, res) => {
-  console.log(req.body);
   const { email } = req.body;
   const [result] = await getByEmail(email);
   if (result.length === 0) {
@@ -96,7 +95,6 @@ router.put('/reset', async (req, res) => {
     return res.json({ fatal: 'Error en email y/o contraseña' });
   }
   const usuario = result[0];
-  console.log(usuario);
   req.body.newPassword = bcrypt.hashSync(newPassword, 8);
   try {
     const [result] = await update(usuario.id, req.body);
